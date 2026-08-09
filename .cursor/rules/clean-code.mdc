@@ -1,0 +1,26 @@
+---
+description: Clean code style enforced across the whole codebase
+alwaysApply: true
+---
+
+# Clean Code Style
+
+- **Name things precisely.** A name should make the comment unnecessary. `activeWindowDurationMs`, not `data` or `val`.
+- **Small functions, single responsibility.** If a function needs a comment to explain its sections, split it into named functions instead.
+- **No dead code.** Remove unused imports, commented-out blocks, and stale TODOs rather than leaving them "just in case." Git history is the backup.
+- **Comments explain *why*, never *what*.** Don't narrate obvious code (`// increment counter`). Only comment non-obvious constraints, trade-offs, or gotchas.
+
+```
+// BAD
+// loop through windows and add duration
+for (const w of windows) { total += w.duration }
+
+// GOOD - no comment needed, code is self-explanatory
+for (const activeWindow of activeWindows) {
+  totalFocusedMs += activeWindow.durationMs
+}
+```
+
+- **Fail loudly, not silently.** Never swallow errors with an empty catch block. Log or propagate with context.
+- **Consistent formatting.** Rely on the project formatter/linter (Prettier/ESLint for TS, `rustfmt`/`clippy` for Rust); don't hand-format against the tool.
+- **Flat over nested.** Prefer early returns and guard clauses over deeply nested conditionals.

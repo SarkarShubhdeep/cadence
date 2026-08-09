@@ -1,0 +1,14 @@
+---
+description: React/TypeScript/Tailwind conventions for the Cadence frontend
+globs: **/*.ts,**/*.tsx
+alwaysApply: false
+---
+
+# Frontend Conventions
+
+- **Functional components only**, with typed props via an explicit `interface` or `type`.
+- **No `any`.** Use precise types, `unknown` with narrowing, or generics instead.
+- **Extract custom hooks** for reusable stateful logic rather than duplicating `useEffect`/`useState` blocks across components.
+- **Tailwind + shadcn/ui first.** Use utility classes and existing shadcn primitives before writing custom CSS or a new component from scratch.
+- **Colocate.** Keep a component's styles, types, and small helpers in the same file/folder unless they're genuinely shared.
+- **No unnecessary state.** Derive values during render instead of syncing them into `useState`/`useEffect`.

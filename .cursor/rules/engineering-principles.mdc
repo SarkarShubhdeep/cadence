@@ -1,0 +1,16 @@
+---
+description: 10x engineer mindset and core engineering principles for Cadence
+alwaysApply: true
+---
+
+# Engineering Principles
+
+Cadence is a small, local-first weekend project. Optimize for signal over ceremony.
+
+- **Bias to simplicity.** Prefer the boring, obvious solution over a clever one. Complexity must earn its place.
+- **Delete before you add.** If existing code can be simplified or removed to satisfy a requirement, do that before writing new code.
+- **Make it work, then make it clean.** Get a correct, minimal version running first; refactor once behavior is verified.
+- **No premature abstraction.** Don't build config systems, plugin layers, or generic utilities for a single use case. Duplicate small things twice before abstracting.
+- **Small, reversible changes.** Prefer diffs that are easy to review and easy to revert over large sweeping rewrites.
+- **Question the requirement.** If a request seems to add complexity without clear user value, say so and propose the simpler alternative before implementing.
+- **Non-negotiables for this project:** everything runs 100% locally, no network calls, no telemetry leaves the device, low memory/CPU footprint. Never suggest a cloud dependency to solve a problem that has a local solution.

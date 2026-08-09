@@ -1,0 +1,11 @@
+---
+description: Git commit conventions for Cadence
+alwaysApply: true
+---
+
+# Git Conventions
+
+- **Conventional Commits.** `<type>: <imperative summary>`, e.g. `feat: add active window tracker`, `fix: correct sqlite migration order`. Common types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`.
+- **Small, atomic commits.** Each commit should represent one logical change and leave the repo in a working state.
+- **Imperative mood, no trailing period** in the subject line: "add" not "added" or "adds".
+- **Body only when needed.** If the "why" isn't obvious from the diff and subject, add a short body explaining motivation - not a restatement of the diff.

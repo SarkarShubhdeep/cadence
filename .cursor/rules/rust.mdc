@@ -1,0 +1,13 @@
+---
+description: Rust backend conventions for the Cadence Tauri app
+globs: **/*.rs
+alwaysApply: false
+---
+
+# Rust Backend Conventions
+
+- **`Result`-based error handling.** No `.unwrap()` or `.expect()` outside of tests; propagate errors with `?` and meaningful error types.
+- **Clippy-clean.** Code should pass `cargo clippy -- -D warnings` before being considered done.
+- **Clear module boundaries.** Keep telemetry capture, aggregation, and SQLite persistence in separate modules; don't let them reach into each other's internals.
+- **Privacy by construction.** Never log, print, or persist raw keystrokes, window titles' full text, or file contents - only aggregated/derived metrics (counts, durations, categories).
+- **Minimal footprint.** Avoid unnecessary allocations or polling loops in hot paths (activity capture runs continuously); prefer event-driven APIs where the OS provides them.
