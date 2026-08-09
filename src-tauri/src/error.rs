@@ -6,4 +6,6 @@ pub enum CadenceError {
     Io(#[from] std::io::Error),
     #[error("database lock was poisoned")]
     LockPoisoned,
+    #[error("local midnight was ambiguous due to a timezone transition")]
+    AmbiguousLocalTime,
 }
