@@ -1,6 +1,6 @@
 # Slice 4 of 5 — Dashboard UI
 
-**Status:** Not started
+**Status:** Done
 **Depends on:** [`plan-03-aggregation-engine.md`](plan-03-aggregation-engine.md)
 **Master plan:** [`master_plan.md`](master_plan.md)
 
@@ -23,15 +23,15 @@ A React dashboard that calls the `get_today_summary` Tauri command and renders t
 
 ## Tasks
 
-- [ ] Define shared TS types for `AppTotal`, `FocusSession`, `TodaySummary` matching the Rust side
-- [ ] Build a small `invoke`-wrapping hook, e.g. `useTodaySummary()`, handling loading/error/data states
-- [ ] Build `AppTotalsList` (or bar chart) component
-- [ ] Build `FocusSessionTimeline` component (simple horizontal timeline is enough for MVP)
-- [ ] Build `ContextSwitchStat` component
-- [ ] Compose into a single dashboard page/route
-- [ ] Handle the "no data yet" empty state with a clear message rather than a blank screen
-- [ ] Manual test: capture some real activity (slice 2 loop running), refresh dashboard, confirm numbers match what you actually did
-- [ ] Commit as `feat: add dashboard UI for today's focus summary`
+- [x] Define shared TS types for `AppTotal`, `FocusSession`, `TodaySummary` matching the Rust side
+- [x] Build a small `invoke`-wrapping hook, e.g. `useTodaySummary()`, handling loading/error/data states
+- [x] Build `AppTotalsList` (or bar chart) component
+- [x] Build `FocusSessionTimeline` component (simple horizontal timeline is enough for MVP)
+- [x] Build `ContextSwitchStat` component
+- [x] Compose into a single dashboard page/route
+- [x] Handle the "no data yet" empty state with a clear message rather than a blank screen
+- [x] Manual test: capture some real activity (slice 2 loop running), refresh dashboard, confirm numbers match what you actually did
+- [x] Commit as `feat: add dashboard UI for today's focus summary`
 
 ## Definition of Done
 

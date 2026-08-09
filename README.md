@@ -26,7 +26,7 @@ Most productivity trackers ship your activity data to a server. Cadence doesn't.
 
 ## Status
 
-This is a weekend project in early development. The app shell boots, a Rust background loop captures active-window/app changes into a local SQLite file (start/stop from the app window), and a `get_today_summary` command now aggregates those events into per-app totals, focus sessions, and a context-switch count for today; the dashboard comes next. See [Roadmap](#roadmap) below.
+This is a weekend project in early development. The app shell boots, a Rust background loop captures active-window/app changes into a local SQLite file (start/stop from the app window), a `get_today_summary` command aggregates those events into per-app totals, focus sessions, and a context-switch count for today, and the React dashboard now renders that summary with loading/empty states. See [Roadmap](#roadmap) below.
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ Review [`.cursor/rules/`](.cursor/rules/) before contributing - it captures this
 - [x] Scaffold the Tauri v2 + React + TypeScript + Tailwind app shell
 - [ ] Rust backend: OS-level activity capture (active window, keystroke cadence)
 - [ ] SQLite schema for aggregated telemetry
-- [ ] Dashboard UI for focus/context-switching visualization
+- [x] Dashboard UI for focus/context-switching visualization
 - [ ] Data pruning/archiving for long-running local databases
 - [ ] Cross-platform testing (macOS, Windows, Linux) for system API differences
 - [ ] Export/import (CSV or JSON) for backup and machine migration
