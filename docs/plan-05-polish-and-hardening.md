@@ -1,6 +1,6 @@
 # Slice 5 of 5 — Polish & Hardening
 
-**Status:** Verified — pending commit/tag
+**Status:** Done
 **Depends on:** [`plan-04-dashboard-ui.md`](plan-04-dashboard-ui.md)
 **Master plan:** [`master_plan.md`](master_plan.md)
 
@@ -29,7 +29,7 @@ Close the loop into something demo-able and stable: manual controls, error handl
 - [x] Set app icon + window title if still placeholder from slice 1 (already set to "Cadence" since slice 1; no change needed)
 - [x] Verify against every bullet in [`master_plan.md` §10 Success Criteria](master_plan.md#10-success-criteria-definition-of-done-for-mvp)
 - [x] Take a screenshot of the working dashboard, add to README
-- [ ] Tag the commit/release as `v0.1.0-mvp` (after this branch merges to main)
+- [x] Tag the commit/release as `v0.1.0-mvp`
 
 ## Definition of Done
 
