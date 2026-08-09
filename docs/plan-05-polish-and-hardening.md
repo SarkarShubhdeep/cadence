@@ -1,6 +1,6 @@
 # Slice 5 of 5 — Polish & Hardening
 
-**Status:** Not started
+**Status:** Verified — pending commit/tag
 **Depends on:** [`plan-04-dashboard-ui.md`](plan-04-dashboard-ui.md)
 **Master plan:** [`master_plan.md`](master_plan.md)
 
@@ -23,13 +23,13 @@ Close the loop into something demo-able and stable: manual controls, error handl
 
 ## Tasks
 
-- [ ] Add a start/stop toggle in the UI wired to the slice-2 Tauri commands
-- [ ] Surface capture/DB errors to the user instead of failing silently
-- [ ] Run `cargo clippy -- -D warnings` and the frontend linter across the full repo; fix everything
-- [ ] Set app icon + window title if still placeholder from slice 1
-- [ ] Verify against every bullet in [`master_plan.md` §10 Success Criteria](master_plan.md#10-success-criteria-definition-of-done-for-mvp)
-- [ ] Take a screenshot of the working dashboard, add to README
-- [ ] Tag the commit/release as `v0.1.0-mvp`
+- [x] Add a start/stop toggle in the UI wired to the slice-2 Tauri commands (already present from slice 4; extracted into `useCapture`)
+- [x] Surface capture/DB errors to the user instead of failing silently (Rust emits `capture-error`; UI shows a dismissible banner)
+- [x] Run `cargo clippy -- -D warnings` and the frontend linter across the full repo; fix everything
+- [x] Set app icon + window title if still placeholder from slice 1 (already set to "Cadence" since slice 1; no change needed)
+- [x] Verify against every bullet in [`master_plan.md` §10 Success Criteria](master_plan.md#10-success-criteria-definition-of-done-for-mvp)
+- [x] Take a screenshot of the working dashboard, add to README
+- [ ] Tag the commit/release as `v0.1.0-mvp` (after this branch merges to main)
 
 ## Definition of Done
 
