@@ -26,7 +26,7 @@ Most productivity trackers ship your activity data to a server. Cadence doesn't.
 
 ## Status
 
-This is a weekend project in early development. The app shell boots, and a Rust background loop now captures active-window/app changes into a local SQLite file (start/stop from the app window); aggregation and the dashboard come next. See [Roadmap](#roadmap) below.
+This is a weekend project in early development. The app shell boots, a Rust background loop captures active-window/app changes into a local SQLite file (start/stop from the app window), and a `get_today_summary` command now aggregates those events into per-app totals, focus sessions, and a context-switch count for today; the dashboard comes next. See [Roadmap](#roadmap) below.
 
 ## Prerequisites
 

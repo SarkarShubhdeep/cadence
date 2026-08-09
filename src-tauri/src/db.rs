@@ -49,6 +49,39 @@ impl Db {
 
         Ok(())
     }
+
+    /// Loads events starting within `[day_start_ms, day_end_ms)`, ordered
+    /// chronologically, for the aggregation engine to summarize.
+    pub fn window_events_for_day(
+        &self,
+        day_start_ms: i64,
+        day_end_ms: i64,
+    ) -> Result<Vec<WindowEvent>, CadenceError> {
+        let connection = self
+            .connection
+            .lock()
+            .map_err(|_| CadenceError::LockPoisoned)?;
+
+        let mut statement = connection.prepare(
+            "SELECT app_name, window_title, started_at, ended_at \
+             FROM window_events \
+             WHERE started_at >= ?1 AND started_at < ?2 \
+             ORDER BY started_at ASC",
+        )?;
+
+        let events = statement
+            .query_map(params![day_start_ms, day_end_ms], |row| {
+                Ok(WindowEvent {
+                    app_name: row.get(0)?,
+                    window_title: row.get(1)?,
+                    started_at_ms: row.get(2)?,
+                    ended_at_ms: row.get(3)?,
+                })
+            })?
+            .collect::<Result<Vec<_>, _>>()?;
+
+        Ok(events)
+    }
 }
 
 fn migrate(connection: &Connection) -> Result<(), CadenceError> {

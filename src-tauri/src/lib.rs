@@ -1,3 +1,4 @@
+mod aggregate;
 mod capture;
 mod commands;
 mod db;
@@ -28,6 +29,7 @@ pub fn run() {
             commands::start_capture,
             commands::stop_capture,
             commands::is_capturing,
+            commands::get_today_summary,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

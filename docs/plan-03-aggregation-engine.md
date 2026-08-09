@@ -1,6 +1,6 @@
 # Slice 3 of 5 — Aggregation Engine
 
-**Status:** Not started
+**Status:** Done
 **Depends on:** [`plan-02-capture-and-persistence.md`](plan-02-capture-and-persistence.md)
 **Master plan:** [`master_plan.md`](master_plan.md)
 
@@ -23,13 +23,13 @@ Turn raw `window_events` rows into the numbers the dashboard actually needs: per
 
 ## Tasks
 
-- [ ] Define the focus-session threshold and switch-counting rule in code and in a short comment/doc note (why 30s, not 10s or 60s)
-- [ ] Implement `compute_daily_app_totals(events) -> Vec<AppTotal>` as a pure function
-- [ ] Implement `compute_focus_sessions(events) -> Vec<FocusSession>` as a pure function
-- [ ] Implement `compute_context_switches(events) -> usize`
-- [ ] Write unit tests covering: empty input, single app all day, rapid switching, sessions below threshold being excluded
-- [ ] Expose a single Tauri command (e.g. `get_today_summary`) that reads events for today and returns all three aggregates together
-- [ ] Commit as `feat: add aggregation engine for daily focus/switch metrics`
+- [x] Define the focus-session threshold and switch-counting rule in code and in a short comment/doc note (why 30s, not 10s or 60s) — [`MIN_FOCUS_SESSION_MS`](../src-tauri/src/aggregate.rs) in `aggregate.rs`; on-the-fly computation (no `daily_app_totals` table) chosen over persisted rollups since a day of `window_events` is small enough to recompute cheaply on every read
+- [x] Implement `compute_daily_app_totals(events) -> Vec<AppTotal>` as a pure function — [`src-tauri/src/aggregate.rs`](../src-tauri/src/aggregate.rs)
+- [x] Implement `compute_focus_sessions(events) -> Vec<FocusSession>` as a pure function — same file; coalesces consecutive same-app events, title changes don't break a session
+- [x] Implement `compute_context_switches(events) -> usize` — same file; counts adjacent app changes only
+- [x] Write unit tests covering: empty input, single app all day, rapid switching, sessions below threshold being excluded, title-only changes not counting as switches
+- [x] Expose a single Tauri command (`get_today_summary`) that reads events for today and returns all three aggregates together — [`src-tauri/src/commands.rs`](../src-tauri/src/commands.rs), backed by `Db::window_events_for_day`
+- [x] Commit as `feat: add aggregation engine for daily focus/switch metrics`
 
 ## Definition of Done
 
