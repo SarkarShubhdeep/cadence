@@ -1,7 +1,7 @@
 use std::sync::{Arc, Mutex};
 
 use chrono::{Duration, Local, NaiveTime, TimeZone};
-use tauri::State;
+use tauri::{AppHandle, State};
 
 use crate::aggregate::{self, TodaySummary};
 use crate::capture::{self, CaptureHandle};
@@ -15,6 +15,7 @@ pub struct CaptureController {
 
 #[tauri::command]
 pub fn start_capture(
+    app: AppHandle,
     controller: State<'_, CaptureController>,
     db: State<'_, Arc<Db>>,
 ) -> Result<(), String> {
@@ -24,7 +25,7 @@ pub fn start_capture(
         .map_err(|_| "capture controller lock was poisoned".to_string())?;
 
     if handle.is_none() {
-        *handle = Some(capture::start(Arc::clone(&db)));
+        *handle = Some(capture::start(app, Arc::clone(&db)));
     }
 
     Ok(())

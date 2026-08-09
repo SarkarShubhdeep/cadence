@@ -1,33 +1,15 @@
-import { useEffect, useState } from "react";
-import { invoke } from "@tauri-apps/api/core";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 import { AppTotalsList } from "@/components/dashboard/AppTotalsList";
 import { ContextSwitchStat } from "@/components/dashboard/ContextSwitchStat";
 import { FocusSessionTimeline } from "@/components/dashboard/FocusSessionTimeline";
+import { ErrorBanner } from "@/components/ErrorBanner";
+import { useCapture } from "@/hooks/useCapture";
 import { useTodaySummary } from "@/hooks/useTodaySummary";
 
 function App() {
-  const [isCapturing, setIsCapturing] = useState(false);
+  const { isCapturing, toggle, error, clearError } = useCapture();
   const { state, refetch } = useTodaySummary();
-
-  useEffect(() => {
-    invoke<boolean>("is_capturing")
-      .then(setIsCapturing)
-      .catch((error: unknown) => {
-        console.error("cadence: failed to read capture status", error);
-      });
-  }, []);
-
-  const toggleCapture = async () => {
-    try {
-      await invoke(isCapturing ? "stop_capture" : "start_capture");
-      setIsCapturing(!isCapturing);
-    } catch (error) {
-      console.error("cadence: failed to toggle capture", error);
-    }
-  };
 
   return (
     <main className="min-h-screen bg-background px-6 py-8">
@@ -45,7 +27,7 @@ function App() {
             </span>
             <Button
               variant={isCapturing ? "outline" : "default"}
-              onClick={toggleCapture}
+              onClick={toggle}
             >
               {isCapturing ? "Stop" : "Start"}
             </Button>
@@ -54,6 +36,8 @@ function App() {
             </Button>
           </div>
         </header>
+
+        {error && <ErrorBanner message={error} onDismiss={clearError} />}
 
         <DashboardBody state={state} />
       </div>

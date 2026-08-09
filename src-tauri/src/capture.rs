@@ -4,8 +4,13 @@ use std::thread::{self, JoinHandle};
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 use active_win_pos_rs::get_active_window;
+use tauri::{AppHandle, Emitter};
 
 use crate::db::{Db, WindowEvent};
+
+/// Event emitted to the frontend when a background capture operation fails,
+/// e.g. a DB write error. Payload is a user-facing message string.
+const CAPTURE_ERROR_EVENT: &str = "capture-error";
 
 const POLL_INTERVAL: Duration = Duration::from_secs(1);
 
@@ -37,11 +42,11 @@ impl CaptureHandle {
     }
 }
 
-pub fn start(db: Arc<Db>) -> CaptureHandle {
+pub fn start(app_handle: AppHandle, db: Arc<Db>) -> CaptureHandle {
     let stop_flag = Arc::new(AtomicBool::new(false));
     let thread_stop_flag = Arc::clone(&stop_flag);
 
-    let join_handle = thread::spawn(move || run_loop(&db, &thread_stop_flag));
+    let join_handle = thread::spawn(move || run_loop(&app_handle, &db, &thread_stop_flag));
 
     CaptureHandle {
         stop_flag,
@@ -49,7 +54,7 @@ pub fn start(db: Arc<Db>) -> CaptureHandle {
     }
 }
 
-fn run_loop(db: &Db, stop_flag: &AtomicBool) {
+fn run_loop(app_handle: &AppHandle, db: &Db, stop_flag: &AtomicBool) {
     let mut open_span: Option<OpenSpan> = None;
 
     while !stop_flag.load(Ordering::SeqCst) {
@@ -60,16 +65,17 @@ fn run_loop(db: &Db, stop_flag: &AtomicBool) {
         }
 
         if let Some(identity) = snapshot_active_window() {
-            open_span = advance_span(db, open_span, identity);
+            open_span = advance_span(app_handle, db, open_span, identity);
         }
     }
 
     if let Some(span) = open_span {
-        close_span(db, &span, now_ms());
+        close_span(app_handle, db, &span, now_ms());
     }
 }
 
 fn advance_span(
+    app_handle: &AppHandle,
     db: &Db,
     open_span: Option<OpenSpan>,
     identity: WindowIdentity,
@@ -77,7 +83,7 @@ fn advance_span(
     match open_span {
         Some(span) if span.identity == identity => Some(span),
         Some(span) => {
-            close_span(db, &span, now_ms());
+            close_span(app_handle, db, &span, now_ms());
             Some(OpenSpan {
                 identity,
                 started_at_ms: now_ms(),
@@ -90,7 +96,7 @@ fn advance_span(
     }
 }
 
-fn close_span(db: &Db, span: &OpenSpan, ended_at_ms: i64) {
+fn close_span(app_handle: &AppHandle, db: &Db, span: &OpenSpan, ended_at_ms: i64) {
     let event = WindowEvent {
         app_name: span.identity.app_name.clone(),
         window_title: span.identity.window_title.clone(),
@@ -99,7 +105,12 @@ fn close_span(db: &Db, span: &OpenSpan, ended_at_ms: i64) {
     };
 
     if let Err(err) = db.insert_window_event(&event) {
-        eprintln!("cadence: failed to persist window event: {err}");
+        let message = format!("Failed to save captured activity: {err}");
+        eprintln!("cadence: {message}");
+
+        if let Err(emit_err) = app_handle.emit(CAPTURE_ERROR_EVENT, message) {
+            eprintln!("cadence: failed to emit capture-error event: {emit_err}");
+        }
     }
 }
 
