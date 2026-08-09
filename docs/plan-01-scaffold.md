@@ -1,6 +1,6 @@
 # Slice 1 of 5 — Scaffold & Project Setup
 
-**Status:** Not started
+**Status:** Verified — pending commit
 **Depends on:** nothing (first slice)
 **Master plan:** [`master_plan.md`](master_plan.md)
 
@@ -25,13 +25,13 @@ Get a Tauri v2 + React + TypeScript + Tailwind + shadcn/ui app booting to a wind
 
 ## Tasks
 
-- [ ] Scaffold Tauri v2 app (`npm create tauri-app@latest` or manual `src-tauri/` setup) with React + TS template
-- [ ] Install and configure Tailwind CSS
-- [ ] Install shadcn/ui, run its init, add 2-3 base components (e.g. `card`, `button`) to confirm it works
-- [ ] Add `.eslintrc`/`eslint.config.*` + Prettier config matching [`.cursor/rules/frontend.mdc`](../.cursor/rules/frontend.mdc)
-- [ ] Add `rustfmt.toml` (if needed) and confirm `cargo clippy -- -D warnings` runs clean on the generated Rust skeleton
-- [ ] Confirm `npm run tauri dev` opens a native window with a placeholder "Cadence" screen
-- [ ] Update root `README.md` "Getting Started" section with the real, working commands
+- [x] Scaffold Tauri v2 app (`npm create tauri-app@latest` or manual `src-tauri/` setup) with React + TS template
+- [x] Install and configure Tailwind CSS
+- [x] Install shadcn/ui, run its init, add 2-3 base components (e.g. `card`, `button`) to confirm it works
+- [x] Add `.eslintrc`/`eslint.config.*` + Prettier config matching [`.cursor/rules/frontend.mdc`](../.cursor/rules/frontend.mdc)
+- [x] Add `rustfmt.toml` (if needed) and confirm `cargo clippy -- -D warnings` runs clean on the generated Rust skeleton
+- [x] Confirm `npm run tauri dev` opens a native window with a placeholder "Cadence" screen
+- [x] Update root `README.md` "Getting Started" section with the real, working commands
 - [ ] Commit as `feat: scaffold Tauri + React + Tailwind + shadcn app shell`
 
 ## Definition of Done
