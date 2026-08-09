@@ -26,12 +26,13 @@ Most productivity trackers ship your activity data to a server. Cadence doesn't.
 
 ## Status
 
-This is a weekend project in early development. The app shell (Tauri v2 + React + TypeScript + Tailwind + shadcn/ui) is scaffolded and boots to a placeholder window; capture, storage, and dashboard logic come next. See [Roadmap](#roadmap) below.
+This is a weekend project in early development. The app shell boots, and a Rust background loop now captures active-window/app changes into a local SQLite file (start/stop from the app window); aggregation and the dashboard come next. See [Roadmap](#roadmap) below.
 
 ## Prerequisites
 
 - [Rust](https://www.rust-lang.org/tools/install) (stable toolchain) and platform build tools required by [Tauri v2](https://v2.tauri.app/start/prerequisites/)
 - [Node.js](https://nodejs.org/) 18+
+- To capture window titles (not just app names), grant the app Screen Recording permission in System Settings → Privacy & Security
 
 ## Getting Started
 
