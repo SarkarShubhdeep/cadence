@@ -30,6 +30,9 @@ src-tauri/gen/
 !.vscode/extensions.json
 *.swp
 
+# Cursor session-scoped scratch (not durable project docs)
+.cursor/plans/
+
 # Logs
 logs/
 *.log
