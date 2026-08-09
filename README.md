@@ -26,7 +26,7 @@ Most productivity trackers ship your activity data to a server. Cadence doesn't.
 
 ## Status
 
-This is a weekend project in early development. The foundation (repo, docs, tooling conventions) is in place; the Tauri/React/Rust application itself has not been scaffolded yet. See [Roadmap](#roadmap) below.
+This is a weekend project in early development. The app shell (Tauri v2 + React + TypeScript + Tailwind + shadcn/ui) is scaffolded and boots to a placeholder window; capture, storage, and dashboard logic come next. See [Roadmap](#roadmap) below.
 
 ## Prerequisites
 
@@ -34,8 +34,6 @@ This is a weekend project in early development. The foundation (repo, docs, tool
 - [Node.js](https://nodejs.org/) 18+
 
 ## Getting Started
-
-> The app isn't scaffolded yet - these commands describe the intended workflow once it is.
 
 ```bash
 git clone https://github.com/SarkarShubhdeep/cadence.git
@@ -48,7 +46,7 @@ Review [`.cursor/rules/`](.cursor/rules/) before contributing - it captures this
 
 ## Roadmap
 
-- [ ] Scaffold the Tauri v2 + React + TypeScript + Tailwind app shell
+- [x] Scaffold the Tauri v2 + React + TypeScript + Tailwind app shell
 - [ ] Rust backend: OS-level activity capture (active window, keystroke cadence)
 - [ ] SQLite schema for aggregated telemetry
 - [ ] Dashboard UI for focus/context-switching visualization
